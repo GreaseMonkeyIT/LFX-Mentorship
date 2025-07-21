@@ -23,7 +23,7 @@ $(sed -e 's/^/    /' stack_tb.py)
 ## 2. Test Results
 
 \`\`\`
-$(grep -E "stack_tb (passed|failed)" -C2 sim_build/Vtop.log)   # or paste your PASS summary manually
+$(grep -E "stack_tb (passed|failed)" -C2 sim_build/Vtop.log)
 \`\`\`
 
 *Generated on: $(date +"%Y-%m-%d %H:%M")*
