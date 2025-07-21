@@ -86,6 +86,7 @@ class StackModule(val dataWidth: Int, val len: Int) extends Module {
   io.isEmpty   := sp === 0.U
   io.isFull    := sp === len.U
 }
+```
 
 ### `stack_tb.py`
 
@@ -227,7 +228,39 @@ async def stack_tb(dut):
                 await pop_from_stack(data_width, length, stack, dut, i, f)
             else:
                 await peek_at_stack(data_width, length, stack, dut, i, f)
+```
 
+---
 
+## 2. Test Results
 
+```
+(.venv) dextopsd@LAPTOP-3UCL3DS6:~/RISC-V/Challenge/LFX-Mentorship$ make | tee sim_build/Vtop.log
+rm -f results.xml
+"make" -f Makefile results.xml
+make[1]: Entering directory '/home/dextopsd/RISC-V/Challenge/LFX-Mentorship'
+rm -f results.xml
+MODULE=stack_tb TESTCASE= TOPLEVEL=StackModule TOPLEVEL_LANG=verilog \
+         sim_build/Vtop  --trace --trace-structs  
+     -.--ns INFO     gpi                                ..mbed/gpi_embed.cpp:108  in set_program_name_in_venv        Using Python virtual environment interpreter at /home/dextopsd/RISC-V/Challenge/LFX-Mentorship/.venv/bin/python
+     -.--ns INFO     gpi                                ../gpi/GpiCommon.cpp:101  in gpi_print_registered_impl       VPI registered
+     0.00ns INFO     cocotb                             Running on Verilator version 5.036 2025-04-27
+     0.00ns INFO     cocotb                             Running tests with cocotb v1.9.2 from /home/dextopsd/RISC-V/Challenge/LFX-Mentorship/.venv/lib/python3.12/site-packages/cocotb
+     0.00ns INFO     cocotb                             Seeding Python random module with 1753075737
+     0.00ns INFO     cocotb.regression                  pytest not found, install it to enable better AssertionError messages
+     0.00ns INFO     cocotb.regression                  Found test stack_tb.stack_tb
+     0.00ns INFO     cocotb.regression                  running stack_tb (1/1)
+  2999.50ns INFO     cocotb.regression                  stack_tb passed
+  2999.50ns INFO     cocotb.regression                  **************************************************************************************
+                                                        ** TEST                          STATUS  SIM TIME (ns)  REAL TIME (s)  RATIO (ns/s) **
+                                                        **************************************************************************************
+                                                        ** stack_tb.stack_tb              PASS        2999.50           0.26      11642.63  **
+                                                        **************************************************************************************
+                                                        ** TESTS=1 PASS=1 FAIL=0 SKIP=0               2999.50           0.27      11008.76  **
+                                                        **************************************************************************************
+                                                        
+- :0: Verilog $finish
+stack_tb PASSED
+```
 
+*Generated on: 2025-07-21 05:30*
